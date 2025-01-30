@@ -15,7 +15,7 @@ type LoginRouter struct{}
 func (cr *LoginRouter) InitApiRouter(parent *gin.RouterGroup) {
 
 	//创建一个公有的路由组，管理不同的登录接口(不同用户使用不同接口进行登录）
-	loginGroup := parent.Group("login")
+	loginGroup := parent
 
 	//使用DAO层，将与数据库相关的操作进行封装
 	//Controller用于将将定义的一些处理函数进行实例化

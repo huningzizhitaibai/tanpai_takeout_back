@@ -6,9 +6,9 @@ server:
 datasource:
   host: 47.98.147.86
   port: 3306
-  username: sky_take_out
-  password: BSi38nsXDZZ5xztP
-  db_name: sky_take_out
+  username: tanpai
+  password: KjsxR4AR6mMAYeek
+  db_name: tanpai
   config: charset=utf8mb4&parseTime=True&loc=Local
 
 redis:

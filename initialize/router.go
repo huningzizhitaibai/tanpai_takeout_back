@@ -11,7 +11,7 @@ func routerInit() *gin.Engine {
 	//所有路由的一个实例
 	//在设计中，这个实例中有一个路由初始化的函数，将所有的路由在当前的这个服务引擎r下进行初始化
 
-	common := r.Group("/")
+	common := r.Group("/common")
 	{
 		//我自己添加的测试连接的路由
 		common.GET("/test", func(c *gin.Context) {

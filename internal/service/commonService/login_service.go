@@ -11,7 +11,7 @@ import (
 
 type ILoginService interface {
 	//处理接口两个参数，分别进行处理并发控制和结构前端传来的数据
-	CheckUser(ctx context.Context, dto request.LoginDTO) (model.User, error)
+	CheckUser(ctx context.Context, dto request.LoginDTO) (model.User_basic, error)
 }
 
 // 定义一个结构体进行具体的实现
@@ -19,8 +19,8 @@ type LoginServiceImpl struct {
 	repo commonRepo.LoginRepo
 }
 
-func (s *LoginServiceImpl) CheckUser(ctx context.Context, dto request.LoginDTO) (model.User, error) {
-	userInfo, err := s.repo.Check(ctx, model.User{
+func (s *LoginServiceImpl) CheckUser(ctx context.Context, dto request.LoginDTO) (model.User_basic, error) {
+	userInfo, err := s.repo.Check(ctx, model.User_basic{
 		Username: dto.Username,
 		Password: dto.Password,
 	})

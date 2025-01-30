@@ -1,7 +1,7 @@
 package model
 
 // 简化表，只记录基本数据
-type User struct {
+type User_basic struct {
 	Id       uint64 `json:"id"`
 	Username string `json:"username"`
 	Password string `json:"password"`

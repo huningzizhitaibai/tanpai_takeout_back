@@ -1,1 +1,8 @@
 time="2025-01-29 13:45:29" level=info msg="日志开启成功"
+time="2025-01-30 12:53:37" level=info msg="日志开启成功"
+time="2025-01-30 12:54:40" level=info msg="日志开启成功"
+time="2025-01-30 12:54:45" level=debug msg="param LoginDTO json failedEOF"
+time="2025-01-30 12:55:32" level=debug msg="CheckUser errError 1054 (42S22): Unknown column 'username' in 'where clause'"
+time="2025-01-30 13:02:28" level=info msg="日志开启成功"
+time="2025-01-30 13:02:39" level=debug msg="CheckUser errError 1146 (42S02): Table 'sky_take_out.user_basic' doesn't exist"
+time="2025-01-30 13:03:43" level=info msg="日志开启成功"
