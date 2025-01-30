@@ -1,12 +1,16 @@
 package controller
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"tanpai_takeout_back/common"
 	"tanpai_takeout_back/common/e"
+	"tanpai_takeout_back/common/enum"
+	"tanpai_takeout_back/common/util"
 	"tanpai_takeout_back/global"
 	"tanpai_takeout_back/internal/api/request"
+	"tanpai_takeout_back/internal/result/commonResult"
 	"tanpai_takeout_back/internal/service/commonService"
 )
 
@@ -37,13 +41,19 @@ func (lc *LoginController) CheckUser(ctx *gin.Context) {
 
 	//将绑定的结构体直接传入处理函数进行判断处理，同时使用ctx进行并发控制
 	userInfo, err := lc.service.CheckUser(ctx, loginDto)
+
+	var login_result commonResult.LoginResult
+	temp, _ := json.Marshal(userInfo)
+	err = json.Unmarshal(temp, &login_result)
+	login_result.Token, _ = util.GenerateToken(login_result.Username, enum.UserType(login_result.Type), global.Config.Jwt.User.AccessKeySecret)
+
 	if err != nil {
 		code = e.ERROR
 		global.Log.Debug("CheckUser err", err.Error())
 	}
 	ctx.JSON(http.StatusOK, common.Result{
 		Code: code,
-		Data: userInfo,
+		Data: login_result,
 	})
 
 }

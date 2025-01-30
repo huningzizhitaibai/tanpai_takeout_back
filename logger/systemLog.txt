@@ -6,3 +6,6 @@ time="2025-01-30 12:55:32" level=debug msg="CheckUser errError 1054 (42S22): Unk
 time="2025-01-30 13:02:28" level=info msg="日志开启成功"
 time="2025-01-30 13:02:39" level=debug msg="CheckUser errError 1146 (42S02): Table 'sky_take_out.user_basic' doesn't exist"
 time="2025-01-30 13:03:43" level=info msg="日志开启成功"
+time="2025-01-30 15:04:41" level=info msg="日志开启成功"
+time="2025-01-30 15:05:50" level=info msg="日志开启成功"
+time="2025-01-30 18:37:45" level=info msg="日志开启成功"
