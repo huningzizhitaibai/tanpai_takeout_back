@@ -21,6 +21,7 @@ func routerInit() *gin.Engine {
 		})
 
 		allRouter.LoginRouter.InitApiRouter(common)
+		allRouter.SignupRouter.InitApiRouter(common)
 
 	}
 

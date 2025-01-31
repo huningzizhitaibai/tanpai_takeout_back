@@ -28,6 +28,7 @@ func NewLoginController(service commonService.ILoginService) *LoginController {
 // 这个类中的一些相关方法
 func (lc *LoginController) CheckUser(ctx *gin.Context) {
 	code := e.SUCCESS
+	msg := e.Login_OK
 
 	//定义了一个相关前端需要绑定的结构体
 	var loginDto request.LoginDTO
@@ -49,11 +50,13 @@ func (lc *LoginController) CheckUser(ctx *gin.Context) {
 
 	if err != nil {
 		code = e.ERROR
+		msg = e.Login_Fal
 		global.Log.Debug("CheckUser err", err.Error())
 	}
 	ctx.JSON(http.StatusOK, common.Result{
 		Code: code,
 		Data: login_result,
+		Msg:  msg,
 	})
 
 }

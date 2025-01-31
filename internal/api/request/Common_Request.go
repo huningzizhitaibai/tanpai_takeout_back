@@ -1,7 +1,41 @@
 package request
 
+import "image"
+
 // 用户登录时，前端传输参数需要绑定的相关结构体
 type LoginDTO struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
+}
+
+type SignUpDTO_User struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type SignUpDTO_Shop struct {
+	Username           string         `json:"username" form:"username"`
+	Password           string         `json:"password" form:"password"`
+	RealName           string         `json:"realname" form:"realname"`
+	IDNumber           string         `json:"idnumber" form:"idnumber"`
+	CertificateForFood image.Image    `json:"certificateForFood" form:"certificateForFood"` //食品安全证
+	IDCard             [2]image.Image `json:"id_card" form:"id_card"`                       //法人身份证正反两面
+	CertificateForShop image.Image    `json:"certificateForShop" form:"certificateForShop"` //店铺许可
+}
+
+type SignupDTO_Deliver struct {
+	Username   string         `json:"username" form:"username"`
+	Password   string         `json:"password" form:"password"`
+	RealName   string         `json:"realname" form:"realname"`
+	IDCard     [2]image.Image `json:"id_card" form:"id_card"`
+	StuderCard image.Image    `json:"studer_card" form:"studer_card"`
+	IsStudent  bool           `json:"is_student" form:"is_student"`
+}
+
+type SignupDTO_Controller struct {
+	Username   string         `json:"username" form:"username"`
+	Password   string         `json:"password" form:"password"`
+	RealName   string         `json:"realname" form:"realname"`
+	IDCard     [2]image.Image `json:"id_card" form:"id_card"`
+	InviteCode string         `json:"invite_code" form:"invite_code"` //平台的管理员必须填写邀请码进行注册，确保管理员的安全性
 }
