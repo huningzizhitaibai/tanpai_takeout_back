@@ -27,7 +27,7 @@ func (s *SignupDao) DeliverSignup_d(ctx context.Context, deliver request.SignupD
 }
 
 func (s *SignupDao) ControllerSignup_d(ctx context.Context, controller request.SignupDTO_Controller) error {
-	err := s.db.WithContext(ctx).Table("controller").Create(&controller).Error
+	err := s.db.WithContext(ctx).Table("common").Create(&controller).Error
 	return err
 }
 

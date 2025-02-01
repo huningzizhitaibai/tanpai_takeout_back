@@ -3,7 +3,7 @@ package common
 import (
 	"github.com/gin-gonic/gin"
 	"tanpai_takeout_back/global"
-	"tanpai_takeout_back/internal/api/controller"
+	"tanpai_takeout_back/internal/api/common"
 	"tanpai_takeout_back/internal/repository/dao/commonDao"
 	"tanpai_takeout_back/internal/service/commonService"
 )
@@ -21,7 +21,7 @@ func (cr *LoginRouter) InitApiRouter(parent *gin.RouterGroup) {
 	//Controller用于将将定义的一些处理函数进行实例化
 	//这些函数需要处理与数据库相关的逻辑，所以将Dao层作为依赖注入
 	//获得的Ctrl实例可以直接对一些数据库操作进行实现
-	loginCtrl := controller.NewLoginController(
+	loginCtrl := common.NewLoginController(
 		commonService.NewLoginService(commonDao.NewLoginDao(global.DB)),
 	)
 	{

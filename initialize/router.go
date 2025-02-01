@@ -1,7 +1,9 @@
 package initialize
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"net/http"
 	"tanpai_takeout_back/internal/router"
 )
 
@@ -10,6 +12,19 @@ func routerInit() *gin.Engine {
 	allRouter := router.AllRouter
 	//所有路由的一个实例
 	//在设计中，这个实例中有一个路由初始化的函数，将所有的路由在当前的这个服务引擎r下进行初始化
+	r.POST("/upload", func(c *gin.Context) {
+		file, _ := c.FormFile("image")
+		//parentPath, _ := os.Getwd()
+		finalPath := "./source/temp" + file.Filename
+		err := c.SaveUploadedFile(file, finalPath)
+		if err != nil {
+			fmt.Println("保存图片失败")
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"msg": "保存成功",
+			"url": finalPath,
+		})
+	})
 
 	common := r.Group("/common")
 	{
@@ -44,7 +59,7 @@ func routerInit() *gin.Engine {
 	//}
 	//
 	////controller路由组，管理平台管理员相关
-	//controller := r.Group("/controller")
+	//common := r.Group("/common")
 	//{
 	//
 	//}

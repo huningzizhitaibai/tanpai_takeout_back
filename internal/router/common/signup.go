@@ -3,7 +3,7 @@ package common
 import (
 	"github.com/gin-gonic/gin"
 	"tanpai_takeout_back/global"
-	"tanpai_takeout_back/internal/api/controller"
+	"tanpai_takeout_back/internal/api/common"
 	"tanpai_takeout_back/internal/repository/dao/commonDao"
 	"tanpai_takeout_back/internal/service/commonService"
 )
@@ -18,12 +18,12 @@ func (sr *SignupRouter) InitApiRouter(parent *gin.RouterGroup) {
 	sr.service = commonService.NewSignupService(
 		commonDao.NewSignupDao(global.DB),
 	)
-	signupCtrl := controller.NewSignupController(sr.service)
+	signupCtrl := common.NewSignupController(sr.service)
 	{
 		signupRouter.POST("/user", signupCtrl.UserSignup)
-		//signupRouter.POST("/shop", signupCtrl.ShopSignup)
+		signupRouter.POST("/shop", signupCtrl.ShopSignup)
 		//signupRouter.POST("/deliver", signupCtrl.DeliverSignup)
-		//signupRouter.POST("/controller", signupCtrl.ControllerSignup)
+		//signupRouter.POST("/common", signupCtrl.ControllerSignup)
 	}
 
 }
