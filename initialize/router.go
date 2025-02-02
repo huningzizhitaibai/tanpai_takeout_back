@@ -12,17 +12,19 @@ func routerInit() *gin.Engine {
 	allRouter := router.AllRouter
 	//所有路由的一个实例
 	//在设计中，这个实例中有一个路由初始化的函数，将所有的路由在当前的这个服务引擎r下进行初始化
+
+	//图片上传接口
 	r.POST("/upload", func(c *gin.Context) {
 		file, _ := c.FormFile("image")
 		//parentPath, _ := os.Getwd()
-		finalPath := "./source/temp" + file.Filename
+		finalPath := "./source/temp/" + file.Filename
 		err := c.SaveUploadedFile(file, finalPath)
 		if err != nil {
 			fmt.Println("保存图片失败")
 		}
 		c.JSON(http.StatusOK, gin.H{
-			"msg": "保存成功",
-			"url": finalPath,
+			"msg":      "保存成功",
+			"fileName": file.Filename,
 		})
 	})
 

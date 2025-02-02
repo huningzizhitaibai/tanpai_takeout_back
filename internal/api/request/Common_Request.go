@@ -7,27 +7,27 @@ type LoginDTO struct {
 }
 
 type SignUpDTO_User struct {
-	Username string `json:"username" `
-	Password string `json:"password" `
+	Username string `json:"username" binding:"required"`
+	Password string `json:"password" binding:"required"`
 }
 
 type SignUpDTO_Shop struct {
-	Username           string `json:"username" form:"username" `
-	Password           string `json:"password" form:"password" `
-	RealName           string `json:"realname" form:"realname" `
-	IDNumber           string `json:"idnumber" form:"idnumber" `
-	CertificateForFood string `json:"certificateForFood" form:"certificateForFood" ` //食品安全证
-	IDCard1            string `json:"id_card1" form:"id_card1" `                     //法人身份证正反两面
-	IDCard2            string `json:"id_card2" form:"id_card2" `
-	CertificateForShop string `json:"certificateForShop" form:"certificateForShop" ` //店铺许可
+	Username           string `json:"username" form:"username" binding:"required"`
+	Password           string `json:"password" form:"password" binding:"required"`
+	RealName           string `json:"realname" form:"realname" binding:"required"`
+	IDNumber           string `json:"idnumber" form:"idnumber" binding:"required"`
+	CertificateForFood string `json:"certificateForFood" form:"certificateForFood" binding:"required"` //食品安全证
+	IDCard1            string `json:"id_card1" form:"id_card1" binding:"required"`                     //法人身份证正反两面
+	IDCard2            string `json:"id_card2" form:"id_card2" binding:"required"`
+	CertificateForShop string `json:"certificateForShop" form:"certificateForShop" binding:"required"` //店铺许可
 }
 
 type SignupDTO_Deliver struct {
 	Username   string `json:"username" form:"username" `
 	Password   string `json:"password" form:"password" `
 	RealName   string `json:"realname" form:"realname" `
-	IDCard1    string `json:"id_card" form:"id_card" `
-	IDCard2    string `json:"id_card" form:"id_card2" `
+	IDCard1    string `json:"id_card1" form:"id_card" `
+	IDCard2    string `json:"id_card2" form:"id_card2" `
 	StuderCard string `json:"studer_card" form:"studer_card"`
 	IsStudent  bool   `json:"is_student" form:"is_student" `
 }

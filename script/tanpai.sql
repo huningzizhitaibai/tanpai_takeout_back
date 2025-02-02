@@ -24,12 +24,12 @@ create table `shop`(
     `id` bigint not null auto_increment,
     `username` varchar(30) not null ,
     `password` varchar(100) not null ,
-    `realName` varchar(20) not null comment '法人真实姓名',
-    `idNumber` varchar(20) not null comment '身份证号',
-    `certificateForFood` varchar(100) not null comment '食品安全证的存储路径',
-    `IDCard1` varchar(100) not null comment '身份证正面存储路径',
-    `IDCard2` varchar(100) not null comment '身份证反面存储路径',
-    `CertificateForShop` varchar(100) not null comment '营业执照',
+    `real_name` varchar(20) not null comment '法人真实姓名',
+    `id_number` varchar(20) not null comment '身份证号',
+    `certificate_for_food` varchar(100) not null comment '食品安全证的存储路径',
+    `id_card1` varchar(100) not null comment '身份证正面存储路径',
+    `id_card2` varchar(100) not null comment '身份证反面存储路径',
+    `certificate_for_shop` varchar(100) not null comment '营业执照',
     primary key (`id`)
 );
 
@@ -38,9 +38,9 @@ create table `deliver` (
     `id` bigint not null auto_increment,
     `username` varchar(30) not null ,
     `password` varchar(100) not null ,
-    `realName` varchar(20) not null ,
-    `studerCard` varchar(100),
-    `isStudent` boolean default false,
+    `real_name` varchar(20) not null ,
+    `studer_card` varchar(100),
+    `is_student` boolean default false,
     primary key (`id`)
 );
 
@@ -49,9 +49,9 @@ create table  `controller` (
     `id` bigint not null auto_increment,
     `username` varchar(30) not null ,
     `password` varchar(100) not null ,
-    `realName` varchar(20) not null ,
-    `IDCard1` varchar(100) not null ,
-    `IDCard2` varchar(100) not null ,
-    `inviteCode` varchar(100) not null ,
+    `real_name` varchar(20) not null ,
+    `id_card1` varchar(100) not null ,
+    `id_card2` varchar(100) not null ,
+    `invite_code` varchar(100) not null ,
     primary key (`id`)
 );
