@@ -10,8 +10,8 @@ import (
 //定义jwt生成中需要包含的参数
 
 type CustomClaims struct {
-	Username string        `json:"username"`
-	Type     enum.UserType `json:"type"` //用户权限
+	Username string        `json:"username" binding:"required"`
+	Type     enum.UserType `json:"type" binding:"required"` //用户权限
 	jwt.RegisteredClaims
 }
 

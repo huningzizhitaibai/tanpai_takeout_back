@@ -14,7 +14,7 @@ type LoginDao struct {
 func (c *LoginDao) Check(ctx context.Context, user model.User_basic) (model.User_basic, error) {
 	var userInfo model.User_basic
 
-	err := c.db.WithContext(ctx).Where("username = ? and password = ?", user.Username, user.Password).Find(&userInfo).Error
+	err := c.db.WithContext(ctx).Table("user_basic").Where("username = ? and password = ?", user.Username, user.Password).First(&userInfo).Error
 	return userInfo, err
 }
 

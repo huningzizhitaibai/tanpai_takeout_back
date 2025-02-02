@@ -77,17 +77,29 @@ func (sc *SignupController) ShopSignup(ctx *gin.Context) {
 	fileType = util.FileTypeFinder(shopSignup.CertificateForFood)
 	temp = "./source/temp/" + shopSignup.CertificateForFood
 	dest = "./source/shop/certificateForFood/" + shopSignup.IDNumber + "-" + shopSignup.Username + fileType
-	os.Rename(temp, dest)
+	err = os.Rename(temp, dest)
+	if err != nil {
+		code = e.ERROR
+		global.Log.Warn("食品安全证书缺失")
+	}
 
 	fileType = util.FileTypeFinder(shopSignup.IDCard1)
 	temp = "./source/temp/" + shopSignup.IDCard1
 	dest = "./source/shop/idcard1/" + shopSignup.IDNumber + "-" + shopSignup.Username + fileType
-	os.Rename(temp, dest)
+	err = os.Rename(temp, dest)
+	if err != nil {
+		code = e.ERROR
+		global.Log.Warn("身份证缺失")
+	}
 
 	fileType = util.FileTypeFinder(shopSignup.IDCard2)
 	temp = "./source/temp/" + shopSignup.IDCard2
 	dest = "./source/shop/idcard2/" + shopSignup.IDNumber + "-" + shopSignup.Username + fileType
-	os.Rename(temp, dest)
+	err = os.Rename(temp, dest)
+	if err != nil {
+		code = e.ERROR
+		global.Log.Warn("店铺经营许可证缺失")
+	}
 
 	//记录信息，存入数据库
 	err = sc.service.ShopSignup(ctx, shopSignup)
