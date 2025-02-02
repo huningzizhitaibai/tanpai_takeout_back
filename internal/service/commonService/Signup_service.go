@@ -29,7 +29,7 @@ func (si *SignupImpl) UserSignup(ctx context.Context, user request.SignUpDTO_Use
 func (si *SignupImpl) ShopSignup(ctx context.Context, user request.SignUpDTO_Shop) error {
 	err := si.repo.ShopSignup_d(ctx, user)
 	if err != nil {
-		return errors.New("注册失败")
+		return err
 	}
 	return nil
 }

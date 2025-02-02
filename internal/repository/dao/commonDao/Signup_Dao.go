@@ -2,6 +2,7 @@ package commonDao
 
 import (
 	"context"
+	"errors"
 	"gorm.io/gorm"
 	"tanpai_takeout_back/internal/api/request"
 	"tanpai_takeout_back/internal/repository/commonRepo"
@@ -12,12 +13,22 @@ type SignupDao struct {
 }
 
 func (s *SignupDao) UserSignup_d(ctx context.Context, user request.SignUpDTO_User) error {
-	err := s.db.WithContext(ctx).Table("user").Create(&user).Error
+	err := s.db.Table("user").First(&user).Error
+	if err != nil {
+		err = s.db.WithContext(ctx).Table("user").Create(&user).Error
+		return err
+	}
+	err = errors.New("用户已经存在")
 	return err
 }
 
 func (s *SignupDao) ShopSignup_d(ctx context.Context, shop request.SignUpDTO_Shop) error {
-	err := s.db.WithContext(ctx).Table("shop").Create(&shop).Error
+	err := s.db.Table("shop").First(&shop).Error
+	if err != nil {
+		err = s.db.WithContext(ctx).Table("shop").Create(&shop).Error
+		return err
+	}
+	err = errors.New("同名商户已经存在")
 	return err
 }
 

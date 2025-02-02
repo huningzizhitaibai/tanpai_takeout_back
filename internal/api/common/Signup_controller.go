@@ -97,6 +97,7 @@ func (sc *SignupController) ShopSignup(ctx *gin.Context) {
 			Code: code,
 			Msg:  err.Error(),
 		})
+		return
 	}
 
 	ctx.JSON(http.StatusOK, common.Result{

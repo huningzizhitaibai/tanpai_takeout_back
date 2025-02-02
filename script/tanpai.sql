@@ -30,6 +30,7 @@ create table `shop`(
     `id_card1` varchar(100) not null comment '身份证正面存储路径',
     `id_card2` varchar(100) not null comment '身份证反面存储路径',
     `certificate_for_shop` varchar(100) not null comment '营业执照',
+    `is_verify` boolean default false comment '是否完成认证',
     primary key (`id`)
 );
 
@@ -41,6 +42,7 @@ create table `deliver` (
     `real_name` varchar(20) not null ,
     `studer_card` varchar(100),
     `is_student` boolean default false,
+    `is_verify` boolean default  false,
     primary key (`id`)
 );
 
