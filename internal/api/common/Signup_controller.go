@@ -63,6 +63,17 @@ func (sc *SignupController) ShopSignup(ctx *gin.Context) {
 		return
 	}
 
+	//记录信息，存入数据库
+	err = sc.service.ShopSignup(ctx, shopSignup)
+	if err != nil {
+		code = e.ERROR
+		ctx.JSON(http.StatusOK, common.Result{
+			Code: code,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
 	//将相关的图片从暂存目录移动到相关存储目录中
 	//从暂存中找到相应文件
 	fileType := util.FileTypeFinder(shopSignup.CertificateForShop)
@@ -99,17 +110,6 @@ func (sc *SignupController) ShopSignup(ctx *gin.Context) {
 	if err != nil {
 		code = e.ERROR
 		global.Log.Warn("店铺经营许可证缺失")
-	}
-
-	//记录信息，存入数据库
-	err = sc.service.ShopSignup(ctx, shopSignup)
-	if err != nil {
-		code = e.ERROR
-		ctx.JSON(http.StatusOK, common.Result{
-			Code: code,
-			Msg:  err.Error(),
-		})
-		return
 	}
 
 	ctx.JSON(http.StatusOK, common.Result{

@@ -2,9 +2,11 @@ package commonDao
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"gorm.io/gorm"
 	"tanpai_takeout_back/internal/api/request"
+	"tanpai_takeout_back/internal/model"
 	"tanpai_takeout_back/internal/repository/commonRepo"
 )
 
@@ -13,9 +15,16 @@ type SignupDao struct {
 }
 
 func (s *SignupDao) UserSignup_d(ctx context.Context, user request.SignUpDTO_User) error {
-	err := s.db.Table("user").First(&user).Error
+	err := s.db.Table("user").Where("username = ? and password = ?", user.Username, user.Password).First(&user).Error
 	if err != nil {
 		err = s.db.WithContext(ctx).Table("user").Create(&user).Error
+
+		var userBasic model.User_basic
+		temp, _ := json.Marshal(user)
+		json.Unmarshal(temp, &userBasic)
+		userBasic.Type = 1
+		err = s.db.WithContext(ctx).Table("user_basic").Create(&userBasic).Error
+
 		return err
 	}
 	err = errors.New("用户已经存在")
@@ -26,6 +35,11 @@ func (s *SignupDao) ShopSignup_d(ctx context.Context, shop request.SignUpDTO_Sho
 	err := s.db.Table("shop").First(&shop).Error
 	if err != nil {
 		err = s.db.WithContext(ctx).Table("shop").Create(&shop).Error
+		var userbasic model.User_basic
+		temp, _ := json.Marshal(shop)
+		json.Unmarshal(temp, &userbasic)
+		userbasic.Type = 2
+		err = s.db.WithContext(ctx).Table("user_basic").Create(&userbasic).Error
 		return err
 	}
 	err = errors.New("同名商户已经存在")
