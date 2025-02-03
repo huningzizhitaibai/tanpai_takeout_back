@@ -37,6 +37,7 @@ type SignupDTO_Controller struct {
 	Username   string `json:"username" form:"username" binding:"required"`
 	Password   string `json:"password" form:"password" binding:"required"`
 	RealName   string `json:"realname" form:"realname" binding:"required"`
+	IDNumber   string `json:"idnumber" form:"idnumber" binding:"required"`
 	IDCard1    string `json:"id_card1" form:"id_card1" binding:"required"`
 	IDCard2    string `json:"id_card2" form:"id_card2" binding:"required"`
 	InviteCode string `json:"invite_code" form:"invite_code" binding:"required"` //平台的管理员必须填写邀请码进行注册，确保管理员的安全性

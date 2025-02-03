@@ -77,7 +77,25 @@ func (s *SignupDao) DeliverSignup_d(ctx context.Context, deliver request.SignupD
 }
 
 func (s *SignupDao) ControllerSignup_d(ctx context.Context, controller request.SignupDTO_Controller) error {
-	err := s.db.WithContext(ctx).Table("common").Create(&controller).Error
+	err := s.db.Table("controller").Where("real_name = ? and id_number = ?", controller.RealName, controller.IDNumber).First(&controller).Error
+	if err == nil {
+		err = errors.New("身份证号已被使用")
+		return err
+	}
+	err = s.db.Table("controller").Where("username = ? ", controller.Username).First(&controller).Error
+	if err == nil {
+		err = errors.New("用户名已经存在")
+		return err
+	}
+
+	//所有都正常就创建该用户，
+
+	err = s.db.WithContext(ctx).Table("controller").Create(&controller).Error
+	var userBasic model.User_basic
+	temp, _ := json.Marshal(controller)
+	json.Unmarshal(temp, &userBasic)
+	userBasic.Type = 0
+	err = s.db.WithContext(ctx).Table("user_basic").Create(&userBasic).Error
 	return err
 }
 
