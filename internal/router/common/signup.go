@@ -22,7 +22,7 @@ func (sr *SignupRouter) InitApiRouter(parent *gin.RouterGroup) {
 	{
 		signupRouter.POST("/user", signupCtrl.UserSignup)
 		signupRouter.POST("/shop", signupCtrl.ShopSignup)
-		//signupRouter.POST("/deliver", signupCtrl.DeliverSignup)
+		signupRouter.POST("/deliver", signupCtrl.DeliverSignup)
 		//signupRouter.POST("/common", signupCtrl.ControllerSignup)
 	}
 

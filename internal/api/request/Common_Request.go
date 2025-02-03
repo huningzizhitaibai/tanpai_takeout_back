@@ -23,20 +23,21 @@ type SignUpDTO_Shop struct {
 }
 
 type SignupDTO_Deliver struct {
-	Username   string `json:"username" form:"username" `
-	Password   string `json:"password" form:"password" `
-	RealName   string `json:"realname" form:"realname" `
-	IDCard1    string `json:"id_card1" form:"id_card" `
-	IDCard2    string `json:"id_card2" form:"id_card2" `
-	StuderCard string `json:"studer_card" form:"studer_card"`
-	IsStudent  bool   `json:"is_student" form:"is_student" `
+	Username    string `json:"username" form:"username" binding:"required"`
+	Password    string `json:"password" form:"password" binding:"required"`
+	RealName    string `json:"realname" form:"realname" binding:"required"`
+	IDNumber    string `json:"idnumber" form:"idnumber" binding:"required"`
+	IDCard1     string `json:"id_card1" form:"id_card" binding:"required"`
+	IDCard2     string `json:"id_card2" form:"id_card2" binding:"required"`
+	StudentCard string `json:"student_card" form:"student_card"`
+	IsStudent   bool   `json:"is_student" form:"is_student"`
 }
 
 type SignupDTO_Controller struct {
-	Username   string `json:"username" form:"username" `
-	Password   string `json:"password" form:"password" `
-	RealName   string `json:"realname" form:"realname" `
-	IDCard1    string `json:"id_card" form:"id_card" `
-	IDCard2    string `json:"id_card" form:"id_card2" `
-	InviteCode string `json:"invite_code" form:"invite_code" ` //平台的管理员必须填写邀请码进行注册，确保管理员的安全性
+	Username   string `json:"username" form:"username" binding:"required"`
+	Password   string `json:"password" form:"password" binding:"required"`
+	RealName   string `json:"realname" form:"realname" binding:"required"`
+	IDCard1    string `json:"id_card1" form:"id_card1" binding:"required"`
+	IDCard2    string `json:"id_card2" form:"id_card2" binding:"required"`
+	InviteCode string `json:"invite_code" form:"invite_code" binding:"required"` //平台的管理员必须填写邀请码进行注册，确保管理员的安全性
 }

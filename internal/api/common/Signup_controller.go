@@ -117,3 +117,67 @@ func (sc *SignupController) ShopSignup(ctx *gin.Context) {
 		Msg:  "success",
 	})
 }
+
+func (sc *SignupController) DeliverSignup(ctx *gin.Context) {
+	code := e.SUCCESS
+	DeliverSignup := request.SignupDTO_Deliver{}
+
+	//这里要确保前端传入的表单是不包含文件数据的
+	err := ctx.Bind(&DeliverSignup)
+	if err != nil {
+		code = e.ERROR
+		global.Log.Warn("绑定骑手注册信息错误")
+		ctx.JSON(http.StatusBadRequest, common.Result{
+			Code: code,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	//记录信息，存入数据库
+	err = sc.service.DeliverSignup(ctx, DeliverSignup)
+	if err != nil {
+		code = e.ERROR
+		ctx.JSON(http.StatusOK, common.Result{
+			Code: code,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	//将相关的图片从暂存目录移动到相关存储目录中
+	//从暂存中找到相应文件
+	fileType := util.FileTypeFinder(DeliverSignup.IDCard1)
+	temp := "./source/temp/" + DeliverSignup.IDCard1
+	dest := "./source/Deliver/idcard1/" + DeliverSignup.IDNumber + "-" + DeliverSignup.Username + fileType
+	err = os.Rename(temp, dest)
+	if err != nil {
+		code = e.ERROR
+		global.Log.Warn(err)
+	}
+
+	fileType = util.FileTypeFinder(DeliverSignup.IDCard2)
+	temp = "./source/temp/" + DeliverSignup.IDCard2
+	dest = "./source/Deliver/idcard2/" + DeliverSignup.IDNumber + "-" + DeliverSignup.Username + fileType
+	err = os.Rename(temp, dest)
+	if err != nil {
+		code = e.ERROR
+		global.Log.Warn(err)
+	}
+
+	if DeliverSignup.IsStudent {
+		fileType = util.FileTypeFinder(DeliverSignup.StudentCard)
+		temp = "./source/temp/" + DeliverSignup.StudentCard
+		dest = "./source/Deliver/studentcard/" + DeliverSignup.IDNumber + "-" + DeliverSignup.Username + fileType
+		err = os.Rename(temp, dest)
+		if err != nil {
+			code = e.ERROR
+			global.Log.Warn("学生证缺失")
+		}
+	}
+
+	ctx.JSON(http.StatusOK, common.Result{
+		Code: code,
+		Msg:  "success",
+	})
+}

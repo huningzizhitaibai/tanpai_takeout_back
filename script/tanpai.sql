@@ -39,7 +39,10 @@ create table `deliver` (
     `username` varchar(30) not null ,
     `password` varchar(100) not null ,
     `real_name` varchar(20) not null ,
-    `studer_card` varchar(100),
+    `id_number` varchar(30) not null ,
+    `id_card1` varchar(100) not null ,
+    `id_card2` varchar(100) not null ,
+    `student_card` varchar(100),
     `is_student` boolean default false,
     `is_verify` boolean default  false,
     primary key (`id`)
