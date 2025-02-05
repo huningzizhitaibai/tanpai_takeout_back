@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"gorm.io/gorm"
+	"tanpai_takeout_back/common/util"
 	"tanpai_takeout_back/internal/api/request"
 	"tanpai_takeout_back/internal/model"
 	"tanpai_takeout_back/internal/repository/commonRepo"
@@ -17,6 +18,7 @@ type SignupDao struct {
 func (s *SignupDao) UserSignup_d(ctx context.Context, user request.SignUpDTO_User) error {
 	err := s.db.Table("user").Where("username = ?", user.Username).First(&user).Error
 	if err != nil {
+		user.Password = util.PasswordCrypto(user.Password)
 		err = s.db.WithContext(ctx).Table("user").Create(&user).Error
 
 		var userBasic model.User_basic
@@ -44,6 +46,7 @@ func (s *SignupDao) ShopSignup_d(ctx context.Context, shop request.SignUpDTO_Sho
 	}
 
 	//所有都正常就创建该用户， todo：将用户加入待审批的商户池，等controller相关功能实现后
+	shop.Password = util.PasswordCrypto(shop.Password)
 	err = s.db.WithContext(ctx).Table("shop").Create(&shop).Error
 	var userbasic model.User_basic
 	temp, _ := json.Marshal(shop)
@@ -67,6 +70,7 @@ func (s *SignupDao) DeliverSignup_d(ctx context.Context, deliver request.SignupD
 
 	//所有都正常就创建该用户， todo：将用户加入待审批的商户池，等controller相关功能实现后
 
+	deliver.Password = util.PasswordCrypto(deliver.Password)
 	err = s.db.WithContext(ctx).Table("deliver").Create(&deliver).Error
 	var userBasic model.User_basic
 	temp, _ := json.Marshal(deliver)
@@ -90,6 +94,7 @@ func (s *SignupDao) ControllerSignup_d(ctx context.Context, controller request.S
 
 	//所有都正常就创建该用户，
 
+	controller.Password = util.PasswordCrypto(controller.Password)
 	err = s.db.WithContext(ctx).Table("controller").Create(&controller).Error
 	var userBasic model.User_basic
 	temp, _ := json.Marshal(controller)
